@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { RequestMetaInfo } from '../request-metainfo';
-import { IGDBFetch } from './igdb-fetch';
 import { IGDBAuthResult } from './igdb-objects';
 
 export interface IIGDBAuthenticator {

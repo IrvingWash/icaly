@@ -14,4 +14,8 @@ export class GameDBService {
 	public async init(): Promise<void> {
 		await this._gameDB.init();
 	}
+
+	public async getGames(): Promise<void> {
+		await this._gameDB.getGames();
+	}
 }

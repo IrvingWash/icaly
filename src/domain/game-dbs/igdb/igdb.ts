@@ -6,7 +6,7 @@ import { IGDBRequestEnvironment, IIGDBRequestEnvironment } from './igdb-request-
 import { IGDBTransport, IIGDBTransport } from './igdb-transport';
 
 export class IGDB implements GameDB {
-	private readonly _baseURL = 'https://api.igdb.com/v4';
+	private readonly _baseURL = 'https://api.igdb.com/v4/';
 	private readonly _clientID = EnvExtractor.igdbClientID;
 	private readonly _clientSecret = EnvExtractor.igdbClientSecret;
 	private _igdbFetch!: IGDBFetch;
@@ -31,5 +31,9 @@ export class IGDB implements GameDB {
 		this._igdbFetch = makeIGDBFetch(this._clientID, authResult.access_token);
 
 		this._transport = new IGDBTransport(this._igdbFetch, this._requestEnvironment);
+	}
+
+	public async getGames(): Promise<void> {
+		await this._transport.games();
 	}
 }
