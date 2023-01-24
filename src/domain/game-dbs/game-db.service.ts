@@ -11,7 +11,7 @@ export class GameDBService {
 		this._gameDB = gameDBFactory();
 	}
 
-	public async authenticate(): Promise<void> {
-		await this._gameDB.authenticate();
+	public async init(): Promise<void> {
+		await this._gameDB.init();
 	}
 }

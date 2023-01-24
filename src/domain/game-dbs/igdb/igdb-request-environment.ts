@@ -2,6 +2,7 @@ import { HTTPMethod, RequestMetaInfo } from '../request-metainfo';
 
 export interface IIGDBRequestEnvironment {
 	authenticateRequestMetaInfo(): RequestMetaInfo;
+	gamesRequestMetaInfo(): RequestMetaInfo;
 }
 
 export class IGDBRequestEnvironment implements IIGDBRequestEnvironment {
@@ -24,6 +25,13 @@ export class IGDBRequestEnvironment implements IIGDBRequestEnvironment {
 
 		return {
 			url,
+			method: HTTPMethod.Post,
+		};
+	}
+
+	public gamesRequestMetaInfo(): RequestMetaInfo {
+		return {
+			url: new URL('games', this._baseURL),
 			method: HTTPMethod.Post,
 		};
 	}

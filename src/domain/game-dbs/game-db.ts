@@ -1,3 +1,3 @@
 export interface GameDB {
-	authenticate(): Promise<void>;
+	init(): Promise<void>;
 }

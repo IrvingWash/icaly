@@ -2,17 +2,17 @@ import axios from 'axios';
 
 import { RequestMetaInfo } from '../request-metainfo';
 
-export type IGDBFetch = <T>(input: RequestMetaInfo, body?: object) => Promise<T>;
+export type IGDBFetch = <T>(input: RequestMetaInfo, body?: string) => Promise<T>;
 
 export function makeIGDBFetch(clientID: string, accessToken: string): IGDBFetch {
-	return (input: RequestMetaInfo, body?: object) => igdbFetch(clientID, accessToken, input, body);
+	return (input: RequestMetaInfo, body?: string) => igdbFetch(clientID, accessToken, input, body);
 }
 
 async function igdbFetch<T>(
 	clientID: string,
 	accessToken: string,
 	input: RequestMetaInfo,
-	body?: object,
+	body?: string,
 ): Promise<T> {
 const response = await axios.request({
 	url: input.url.href,
