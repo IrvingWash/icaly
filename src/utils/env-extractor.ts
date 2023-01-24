@@ -3,6 +3,14 @@ import { ensureDefined } from './helpers';
 enum EnvVariables {
 	Port = 'PORT',
 	ClientURL = 'CLIENT_URL',
+
+	DBType = 'DB_TYPE',
+	DBHost = 'DB_HOST',
+	DBPort = 'DB_PORT',
+	DBName = 'DB_NAME',
+	DBUser = 'DB_USER',
+	DBPassword = 'DB_PASSWORD',
+	DBSynchronize = 'DB_SYNCHRONIZE',
 }
 
 export class EnvExtractor {
@@ -12,6 +20,34 @@ export class EnvExtractor {
 
 	public static get clientURL(): string {
 		return this._getVariable(EnvVariables.ClientURL);
+	}
+
+	public static get dbType(): string {
+		return this._getVariable(EnvVariables.DBType);
+	}
+
+	public static get dbHost(): string {
+		return this._getVariable(EnvVariables.DBHost);
+	}
+
+	public static get dbPort(): string {
+		return this._getVariable(EnvVariables.DBPort);
+	}
+
+	public static get dbName(): string {
+		return this._getVariable(EnvVariables.DBName);
+	}
+
+	public static get dbUser(): string {
+		return this._getVariable(EnvVariables.DBUser);
+	}
+
+	public static get dbPassword(): string {
+		return this._getVariable(EnvVariables.DBPassword);
+	}
+
+	public static get dbSynchronize(): string {
+		return this._getVariable(EnvVariables.DBSynchronize);
 	}
 
 	private static _getVariable(name: EnvVariables): string {
