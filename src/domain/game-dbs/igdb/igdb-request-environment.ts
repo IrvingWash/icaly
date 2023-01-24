@@ -2,7 +2,11 @@ import { EnvExtractor } from 'src/utils/env-extractor';
 
 import { HTTPMethod, RequestMetaInfo } from '../request-metainfo';
 
-export class IGDBRequestEnvironment {
+export interface IIGDBRequestEnvironment {
+	authenticateRequestMetaInfo(): RequestMetaInfo;
+}
+
+export class IGDBRequestEnvironment implements IIGDBRequestEnvironment {
 	public authenticateRequestMetaInfo(): RequestMetaInfo {
 		const url = new URL('https://id.twitch.tv/oauth2/token');
 
