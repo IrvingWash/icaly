@@ -14,8 +14,6 @@ export class IGDB implements GameDB {
 	}
 
 	public async authenticate(): Promise<void> {
-		const authResult = await this._authenticator.authenticate();
-
-		console.log(authResult);
+		await this._authenticator.authenticate();
 	}
 }
