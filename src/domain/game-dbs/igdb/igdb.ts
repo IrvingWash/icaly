@@ -1,7 +1,8 @@
+import { GameDB } from '../game-db';
 import { IGDBAuthenticator, IIGDBAuthenticator } from './igdb-authenticator';
 import { IGDBRequestEnvironment, IIGDBRequestEnvironment } from './igdb-request-environment';
 
-export class IGDB {
+export class IGDB implements GameDB {
 	private _requestEnvironment: IIGDBRequestEnvironment;
 
 	private _authenticator: IIGDBAuthenticator;
@@ -13,6 +14,8 @@ export class IGDB {
 	}
 
 	public async authenticate(): Promise<void> {
-		await this._authenticator.authenticate();
+		const authResult = await this._authenticator.authenticate();
+
+		console.log(authResult);
 	}
 }

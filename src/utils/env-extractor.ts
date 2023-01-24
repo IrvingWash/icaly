@@ -12,6 +12,8 @@ enum EnvVariables {
 	DBPassword = 'DB_PASSWORD',
 	DBSynchronize = 'DB_SYNCHRONIZE',
 
+	GameDB = 'GAME_DB',
+
 	IGDBClientID = 'IGDB_CLIENT_ID',
 	IGDBClientSecret = 'IGDB_CLIENT_SECRET',
 }
@@ -59,6 +61,10 @@ export class EnvExtractor {
 
 	public static get igdbClientSecret(): string {
 		return this._getVariable(EnvVariables.IGDBClientSecret);
+	}
+
+	public static get gameDB(): string {
+		return this._getVariable(EnvVariables.GameDB);
 	}
 
 	private static _getVariable(name: EnvVariables): string {
