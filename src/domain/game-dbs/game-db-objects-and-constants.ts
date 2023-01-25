@@ -16,7 +16,7 @@ export const enum GameCategory {
 	Update,
 }
 
-export const enum GamePlatformCategory {
+export const enum PlatformCategory {
 	Console,
 	Arcade,
 	Platform,
@@ -40,19 +40,19 @@ export interface Game {
 	title: string;
 	alternativeTitles: string[];
 	category: GameCategory;
-	series: GameSeries;
-	cover: GameCover;
+	series: Series;
+	cover: Cover;
 	dlcs: Game[];
 	expandedGames: Game[];
 	expansions: Game[];
 	releaseDate: number;
-	franchise: GameFranchise;
-	franchises: GameFranchise[];
-	genres: GameGenre[];
-	developers: GameCompany[];
-	publishers: GameCompany[];
+	franchise: Franchise;
+	franchises: Franchise[];
+	genres: Genre[];
+	developers: Company[];
+	publishers: Company[];
 	parentGame: Game;
-	platforms: GamePlatform[];
+	platforms: Platform[];
 	remakes: Game[];
 	remasters: Game[];
 	similarGames: Game[];
@@ -63,25 +63,25 @@ export interface Game {
 	websites: string[];
 }
 
-export interface GameSeries {
+export interface Series {
 	title: string;
 	games: Game[];
 }
 
-export interface GameCover {
+export interface Cover {
 	url: string;
 }
 
-export interface GameFranchise {
+export interface Franchise {
 	title: string;
 	games: Game[];
 }
 
-export interface GameGenre {
+export interface Genre {
 	title: string;
 }
 
-export interface GameCompany {
+export interface Company {
 	title: string;
 	country: number;
 	description: string;
@@ -89,12 +89,12 @@ export interface GameCompany {
 	logo: string;
 }
 
-export interface GamePlatform {
+export interface Platform {
 	title: string;
 	abbreviation: string;
 	alternativeTitle: string;
 	generation: number;
-	category: GamePlatformCategory,
+	category: PlatformCategory,
 	logo: string;
 	family: string;
 	description: string;
