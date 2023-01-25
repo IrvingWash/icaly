@@ -9,7 +9,6 @@ export class TestController {
 
 	@Get('games')
 	public async getAllGames(): Promise<void> {
-		await this._gameDBService.init();
 		await this._gameDBService.getGames();
 	}
 }

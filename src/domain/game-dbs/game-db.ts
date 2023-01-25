@@ -1,4 +1,4 @@
 export interface GameDB {
-	init(): Promise<void>;
+	init?: () => Promise<void>;
 	getGames(): Promise<void>;
 }

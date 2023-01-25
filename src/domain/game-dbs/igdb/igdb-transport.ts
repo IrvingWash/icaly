@@ -15,6 +15,6 @@ export class IGDBTransport implements IIGDBTransport {
 	}
 
 	public async games(): Promise<void> {
-		await this._igdbFetch(this._requestEnvironment.gamesRequestMetaInfo(), 'limit 10');
+		await this._igdbFetch(this._requestEnvironment.gamesRequestMetaInfo());
 	}
 }

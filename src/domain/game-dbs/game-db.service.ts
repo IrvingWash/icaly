@@ -1,17 +1,21 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 
 import { GameDB } from './game-db';
 import { gameDBFactory } from './game-db-factory';
 
 @Injectable()
-export class GameDBService {
+export class GameDBService implements OnModuleInit {
 	private _gameDB: GameDB;
 
 	public constructor() {
 		this._gameDB = gameDBFactory();
 	}
 
-	public async init(): Promise<void> {
+	public async onModuleInit(): Promise<void> {
+		if (this._gameDB.init === undefined) {
+			return;
+		}
+
 		await this._gameDB.init();
 	}
 
