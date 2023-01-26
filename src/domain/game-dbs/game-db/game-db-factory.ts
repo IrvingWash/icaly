@@ -1,7 +1,7 @@
 import { EnvExtractor } from 'src/utils/env-extractor';
 
 import { GameDB } from './game-db';
-import { IGDB } from './igdb/igdb';
+import { IGDB } from '../igdb/igdb';
 
 export function gameDBFactory(): GameDB {
 	switch (EnvExtractor.gameDB) {

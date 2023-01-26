@@ -1,5 +1,5 @@
-import { CommonGamesCapability } from '../../capabilities/common-games-capability';
-import { Game } from '../../game-db-objects-and-constants';
+import { CommonGamesCapability } from '../../game-db/capabilities/common-games-capability';
+import { Game } from '../../game-db/game-db-objects-and-constants';
 import { convertIGDBGame } from '../converters/igdb-game-converter';
 import { IIGDBTransport } from '../igdb-transport';
 

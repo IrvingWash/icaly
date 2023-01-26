@@ -1,7 +1,7 @@
 import { EnvExtractor } from 'src/utils/env-extractor';
-import { CommonGamesCapability } from '../capabilities/common-games-capability';
-import { GameDB } from '../game-db';
-import { Game } from '../game-db-objects-and-constants';
+import { CommonGamesCapability } from '../game-db/capabilities/common-games-capability';
+import { GameDB } from '../game-db/game-db';
+import { Game } from '../game-db/game-db-objects-and-constants';
 import { IGDBAuthenticator, IIGDBAuthenticator } from './igdb-authenticator';
 import { IGDBFetch, makeIGDBFetch } from './igdb-fetch';
 import { IGDBRequestEnvironment, IIGDBRequestEnvironment } from './igdb-request-environment';

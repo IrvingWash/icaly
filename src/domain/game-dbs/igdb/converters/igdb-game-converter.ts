@@ -5,7 +5,7 @@ import {
 	GameCategory,
 	GameStatus,
 	Platform,
-} from '../../game-db-objects-and-constants';
+} from '../../game-db/game-db-objects-and-constants';
 
 import {
 	IGDBAlternativeName,
