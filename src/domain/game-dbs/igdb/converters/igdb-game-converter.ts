@@ -42,12 +42,14 @@ export function convertIGDBGame(igdbGame: IGDBGame): Game {
 		standalone_expansions,
 	} = igdbGame;
 
+	const companies = convertInvolvedCompaniesToDevelopers(involved_companies);
+
 	return {
 		alternativeTitles: convertAlternativeNames(alternative_names),
 		category: category as unknown as GameCategory,
 		cover: cover?.url,
 		description: summary,
-		developers: convertInvolvedCompaniesToDevelopers(involved_companies),
+		developers: companies?.developers ?? [],
 		dlcs: convertCommonEntities(dlcs),
 		expandedGames: convertCommonEntities(expanded_games),
 		expansions: convertCommonEntities(expansions),
@@ -57,7 +59,7 @@ export function convertIGDBGame(igdbGame: IGDBGame): Game {
 		id: String(id),
 		parentGame: convertCommonEntity(parent_game),
 		platforms: convertPlatforms(platforms),
-		publishers: convertInvolvedCompaniesToPublishers(involved_companies),
+		publishers: companies?.publishers ?? [],
 		releaseDate: first_release_date,
 		title: name,
 		similarGames: convertCommonEntities(similar_games),
@@ -74,51 +76,35 @@ function convertAlternativeNames(igdbAlternativeNames: IGDBAlternativeName[] | u
 	return igdbAlternativeNames?.map((alternativeName) => alternativeName.name) ?? [];
 }
 
-// TODO: Remove repeating code
-function convertInvolvedCompaniesToDevelopers(igdbInvolvedCompanies: IGDBInvolvedCompany[] | undefined): Company[] {
+function convertInvolvedCompaniesToDevelopers(igdbInvolvedCompanies: IGDBInvolvedCompany[] | undefined): { developers: Company[], publishers: Company[] } | null {
 	if (igdbInvolvedCompanies === undefined) {
-		return [];
+		return null;
 	}
 
 	const developers: Company[] = [];
-
-	for (const company of igdbInvolvedCompanies) {
-		if (company.publisher) {
-			continue;
-		}
-
-		developers.push({
-			id: String(company.company.id),
-			country: company.company.country,
-			logo: company.company.logo?.url,
-			title: company.company.name,
-		});
-	}
-
-	return developers;
-}
-
-function convertInvolvedCompaniesToPublishers(igdbInvolvedCompanies?: IGDBInvolvedCompany[]): Company[] {
-	if (igdbInvolvedCompanies === undefined) {
-		return [];
-	}
-
 	const publishers: Company[] = [];
 
 	for (const company of igdbInvolvedCompanies) {
-		if (!company.publisher) {
-			continue;
-		}
-
-		publishers.push({
+		const companyData = {
 			id: String(company.company.id),
 			country: company.company.country,
 			logo: company.company.logo?.url,
 			title: company.company.name,
-		});
+		};
+
+		if (company.publisher) {
+			publishers.push(companyData);
+
+			continue;
+		}
+
+		developers.push(companyData);
 	}
 
-	return publishers;
+	return {
+		developers,
+		publishers,
+	};
 }
 
 function convertCommonEntities(igdbCommonEntities: IGDBCommonEntity[] | undefined): GameDBCommonEntity[] {

@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+
 import { GameDBService } from 'src/domain/game-dbs/game-db/game-db.service';
 
 @Controller('test')
