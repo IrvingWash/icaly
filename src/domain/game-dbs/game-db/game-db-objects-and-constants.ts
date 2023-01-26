@@ -63,7 +63,7 @@ export interface Company {
 	id: string;
 	title: string;
 	country: number;
-	logo: string;
+	logo?: string;
 }
 
 export interface Platform {

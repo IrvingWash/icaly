@@ -75,7 +75,11 @@ function convertAlternativeNames(igdbAlternativeNames: IGDBAlternativeName[] | u
 }
 
 // TODO: Remove repeating code
-function convertInvolvedCompaniesToDevelopers(igdbInvolvedCompanies: IGDBInvolvedCompany[]): Company[] {
+function convertInvolvedCompaniesToDevelopers(igdbInvolvedCompanies: IGDBInvolvedCompany[] | undefined): Company[] {
+	if (igdbInvolvedCompanies === undefined) {
+		return [];
+	}
+
 	const developers: Company[] = [];
 
 	for (const company of igdbInvolvedCompanies) {
@@ -86,7 +90,7 @@ function convertInvolvedCompaniesToDevelopers(igdbInvolvedCompanies: IGDBInvolve
 		developers.push({
 			id: String(company.company.id),
 			country: company.company.country,
-			logo: company.company.logo.url,
+			logo: company.company.logo?.url,
 			title: company.company.name,
 		});
 	}
@@ -94,7 +98,11 @@ function convertInvolvedCompaniesToDevelopers(igdbInvolvedCompanies: IGDBInvolve
 	return developers;
 }
 
-function convertInvolvedCompaniesToPublishers(igdbInvolvedCompanies: IGDBInvolvedCompany[]): Company[] {
+function convertInvolvedCompaniesToPublishers(igdbInvolvedCompanies?: IGDBInvolvedCompany[]): Company[] {
+	if (igdbInvolvedCompanies === undefined) {
+		return [];
+	}
+
 	const publishers: Company[] = [];
 
 	for (const company of igdbInvolvedCompanies) {
@@ -105,7 +113,7 @@ function convertInvolvedCompaniesToPublishers(igdbInvolvedCompanies: IGDBInvolve
 		publishers.push({
 			id: String(company.company.id),
 			country: company.company.country,
-			logo: company.company.logo.url,
+			logo: company.company.logo?.url,
 			title: company.company.name,
 		});
 	}
@@ -131,11 +139,11 @@ function convertCommonEntity(igdbCommonEntity: IGDBCommonEntity | undefined): Ga
 	};
 }
 
-function convertPlatforms(igdbPlatforms: IGDBPlatform[]): Platform[] {
-	return igdbPlatforms.map((platform) => ({
+function convertPlatforms(igdbPlatforms: IGDBPlatform[] | undefined): Platform[] {
+	return igdbPlatforms?.map((platform) => ({
 		id: String(platform.id),
 		title: platform.name,
 		logo: platform.platform_logo.url,
-	}));
+	})) ?? [];
 }
 

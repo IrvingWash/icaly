@@ -18,7 +18,6 @@ const response = await axios.request({
 	url: input.url.href,
 		method: input.method,
 		headers: {
-			'Content-Type': 'application/json',
 			'Client-ID': clientID,
 			Authorization: `Bearer ${accessToken}`,
 		},

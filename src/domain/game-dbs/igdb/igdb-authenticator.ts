@@ -14,7 +14,7 @@ export class IGDBAuthenticator implements IIGDBAuthenticator {
 	}
 
 	public async authenticate(): Promise<IGDBAuthResult> {
-		const response = await axios.post(this._authRequestMetaInfo.url.href);
+		const response = await axios.post<IGDBAuthResult>(this._authRequestMetaInfo.url.href);
 
 		return response.data;
 	}

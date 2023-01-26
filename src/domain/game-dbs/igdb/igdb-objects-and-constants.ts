@@ -17,10 +17,10 @@ export interface IGDBGame {
 	franchise?: IGDBCommonEntity;
 	franchises?: IGDBCommonEntity[];
 	genres: IGDBCommonEntity[];
-	involved_companies: IGDBInvolvedCompany[];
+	involved_companies?: IGDBInvolvedCompany[];
 	name: string;
 	parent_game?: IGDBCommonEntity;
-	platforms: IGDBPlatform[];
+	platforms?: IGDBPlatform[];
 	remakes?: IGDBCommonEntity[];
 	remasters?: IGDBCommonEntity[];
 	similar_games?: IGDBCommonEntity[];
@@ -52,7 +52,7 @@ export interface IGDBInvolvedCompany {
 export interface IGDBCompany {
 	id: number;
 	country: number;
-	logo: IGDBCompanyLogo;
+	logo?: IGDBCompanyLogo;
 	name: string;
 }
 

@@ -2,6 +2,7 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 
 import { GameDB } from './game-db';
 import { gameDBFactory } from './game-db-factory';
+import { Game } from './game-db-objects-and-constants';
 
 @Injectable()
 export class GameDBService implements OnModuleInit {
@@ -19,7 +20,7 @@ export class GameDBService implements OnModuleInit {
 		await this._gameDB.init();
 	}
 
-	public async getGames(): Promise<void> {
-		await this._gameDB.getGames();
+	public async getGames(): Promise<Game[]> {
+		return await this._gameDB.getGames();
 	}
 }
