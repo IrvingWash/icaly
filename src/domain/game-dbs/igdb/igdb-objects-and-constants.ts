@@ -2,7 +2,7 @@ export interface IGDBGame {
 	id: number;
 	alternative_names?: IGDBAlternativeName[];
 	category: IGDBGameCategory;
-	collection?: IGDBGameCollection[];
+	collection?: IGDBGameCollection;
 	cover?: IGDBCover;
 	dlcs?: IGDBDLC[];
 	expanded_games?: IGDBDLC[];
@@ -15,13 +15,23 @@ export interface IGDBGame {
 	name: string;
 	parent_game?: IGDBParentGame;
 	platforms: IGDBPlatform[];
-	remakes?: IGDBGame[];
-	remasters?: IGDBGame[];
-	similar_games: IGDBSimilarGame;
-	standalone_expansions?: IGDBGame[];
+	remakes?: IGDBRemake[];
+	remasters?: IGDBRemaster[];
+	similar_games: IGDBSimilarGame[];
+	standalone_expansions?: IGDBDLC[];
 	status?: IGDBGameStatus;
 	storyline: string;
 	summary: string;
+}
+
+export interface IGDBRemake {
+	id: number;
+	name: string;
+}
+
+export interface IGDBRemaster {
+	id: number;
+	name: string;
 }
 
 export interface IGDBSimilarGame {

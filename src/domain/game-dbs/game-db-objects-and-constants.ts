@@ -32,7 +32,7 @@ export interface Game {
 	title: string;
 	alternativeTitles: string[];
 	category: GameCategory;
-	series: Series;
+	series?: Series;
 	cover?: string;
 	dlcs: DLC[];
 	expandedGames: DLC[];
@@ -45,14 +45,24 @@ export interface Game {
 	publishers: Company[];
 	parentGame?: ParentGame;
 	platforms: Platform[];
-	remakes: Game[];
-	remasters: Game[];
+	remakes: Remake[];
+	remasters: Remaster[];
 	similarGames: SimilarGame[];
-	standalonExpansions: Game[];
+	standalonExpansions: DLC[];
 	status: GameStatus;
 	storyline: string;
 	description: string;
-	websites: string[];
+}
+
+export interface Remake {
+	id: string;
+	title: string;
+}
+
+
+export interface Remaster {
+	id: string;
+	title: string;
 }
 
 export interface SimilarGame {
@@ -66,8 +76,8 @@ export interface DLC {
 }
 
 export interface Series {
+	id: string;
 	title: string;
-	games: Game[];
 }
 
 export interface Franchise {

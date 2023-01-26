@@ -4,9 +4,12 @@ import {
 	Franchise,
 	Game,
 	GameCategory,
+	GameStatus,
 	Genre,
 	ParentGame,
 	Platform,
+	Remake,
+	Series,
 	SimilarGame,
 } from '../../game-db-objects-and-constants';
 
@@ -15,10 +18,12 @@ import {
 	IGDBDLC,
 	IGDBFranchise,
 	IGDBGame,
+	IGDBGameCollection,
 	IGDBGenre,
 	IGDBInvolvedCompany,
 	IGDBParentGame,
 	IGDBPlatform,
+	IGDBRemake,
 	IGDBSimilarGame,
 } from '../igdb-objects-and-constants';
 
@@ -41,6 +46,12 @@ export function convertIGDBGameToGame(igdbGame: IGDBGame): Game {
 		first_release_date,
 		name,
 		similar_games,
+		remakes,
+		storyline,
+		status,
+		remasters,
+		collection,
+		standalone_expansions,
 	} = igdbGame;
 
 	return {
@@ -62,6 +73,12 @@ export function convertIGDBGameToGame(igdbGame: IGDBGame): Game {
 		releaseDate: first_release_date,
 		title: name,
 		similarGames: convertSimilarGames(similar_games),
+		remakes: convertRemakes(remakes),
+		storyline: storyline,
+		status: status as unknown as GameStatus ?? GameStatus.Released,
+		remasters: convertRemakes(remasters),
+		standalonExpansions: convertDLCs(standalone_expansions),
+		series: convertCollection(collection),
 	}
 }
 
@@ -84,27 +101,31 @@ function convertInvolvedCompaniesToDevelopers(igdbInvolvedCompanies: IGDBInvolve
 			title: company.company.name,
 		});
 	}
+
+	return developers;
 }
 
 function convertInvolvedCompaniesToPublishers(igdbInvolvedCompanies: IGDBInvolvedCompany[]): Company[] {
-	const developers: Company[] = [];
+	const publishers: Company[] = [];
 
 	for (const company of igdbInvolvedCompanies) {
 		if (!company.publisher) {
 			continue;
 		}
 
-		developers.push({
+		publishers.push({
 			id: String(company.company.id),
 			country: company.company.country,
 			logo: company.company.logo.url,
 			title: company.company.name,
 		});
 	}
+
+	return publishers;
 }
 
 function convertDLCs(igdbDLCs: IGDBDLC[] | undefined): DLC[] {
-	return igdbDLCs.map((dlc) => ({
+	return igdbDLCs?.map((dlc) => ({
 		id: String(dlc.id),
 		title: dlc.name,
 	})) ?? [];
@@ -163,4 +184,22 @@ function convertSimilarGames(igdbSimilarGames: IGDBSimilarGame[] | undefined): S
 		id: String(similarGame.id),
 		title: similarGame.name,
 	}));
+}
+
+function convertRemakes(igdbRemakes: IGDBRemake[] | undefined): Remake[] {
+	return igdbRemakes?.map((remake) => ({
+		id: String(remake.id),
+		title: remake.name,
+	})) ?? [];
+}
+
+function convertCollection(igdbCollection?: IGDBGameCollection): Series | undefined {
+	if (igdbCollection === undefined) {
+		return undefined;
+	}
+
+	return {
+		id: String(igdbCollection.id),
+		title: igdbCollection.name,
+	}
 }
