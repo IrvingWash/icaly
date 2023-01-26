@@ -1,4 +1,6 @@
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
+
+import { User } from 'src/domain/user/user.entity';
 import { EnvExtractor } from 'src/utils/env-extractor';
 
 type DBType = 'postgres' | 'mongodb';
@@ -12,7 +14,7 @@ export class DatabaseConfig implements TypeOrmOptionsFactory {
 			database: EnvExtractor.dbName,
 			username: EnvExtractor.dbUser,
 			password: EnvExtractor.dbPassword,
-			entities: [],
+			entities: [User],
 			synchronize: this._isSynchronizeEnabled(),
 		};
 	}
