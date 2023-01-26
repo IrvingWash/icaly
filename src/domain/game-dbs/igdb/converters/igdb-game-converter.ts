@@ -1,33 +1,21 @@
 import {
+	GameDBCommonEntity,
 	Company,
-	DLC,
-	Franchise,
 	Game,
 	GameCategory,
 	GameStatus,
-	Genre,
-	ParentGame,
 	Platform,
-	Remake,
-	Series,
-	SimilarGame,
 } from '../../game-db-objects-and-constants';
 
 import {
 	IGDBAlternativeName,
-	IGDBDLC,
-	IGDBFranchise,
+	IGDBCommonEntity,
 	IGDBGame,
-	IGDBGameCollection,
-	IGDBGenre,
 	IGDBInvolvedCompany,
-	IGDBParentGame,
 	IGDBPlatform,
-	IGDBRemake,
-	IGDBSimilarGame,
 } from '../igdb-objects-and-constants';
 
-export function convertIGDBGameToGame(igdbGame: IGDBGame): Game {
+export function convertIGDBGame(igdbGame: IGDBGame): Game {
 	const {
 		alternative_names,
 		category,
@@ -60,32 +48,33 @@ export function convertIGDBGameToGame(igdbGame: IGDBGame): Game {
 		cover: cover?.url,
 		description: summary,
 		developers: convertInvolvedCompaniesToDevelopers(involved_companies),
-		dlcs: convertDLCs(dlcs),
-		expandedGames: convertDLCs(expanded_games),
-		expansions: convertDLCs(expansions),
-		franchise: convertFranchise(franchise),
-		franchises: convertFranchises(franchises),
-		genres: convertGenres(genres),
+		dlcs: convertCommonEntities(dlcs),
+		expandedGames: convertCommonEntities(expanded_games),
+		expansions: convertCommonEntities(expansions),
+		franchise: convertCommonEntity(franchise),
+		franchises: convertCommonEntities(franchises),
+		genres: convertCommonEntities(genres),
 		id: String(id),
-		parentGame: convertParentGame(parent_game),
+		parentGame: convertCommonEntity(parent_game),
 		platforms: convertPlatforms(platforms),
 		publishers: convertInvolvedCompaniesToPublishers(involved_companies),
 		releaseDate: first_release_date,
 		title: name,
-		similarGames: convertSimilarGames(similar_games),
-		remakes: convertRemakes(remakes),
+		similarGames: convertCommonEntities(similar_games),
+		remakes: convertCommonEntities(remakes),
 		storyline: storyline,
 		status: status as unknown as GameStatus ?? GameStatus.Released,
-		remasters: convertRemakes(remasters),
-		standalonExpansions: convertDLCs(standalone_expansions),
-		series: convertCollection(collection),
-	}
+		remasters: convertCommonEntities(remasters),
+		standaloneExpansions: convertCommonEntities(standalone_expansions),
+		series: convertCommonEntity(collection),
+	};
 }
 
 function convertAlternativeNames(igdbAlternativeNames: IGDBAlternativeName[] | undefined): string[] {
 	return igdbAlternativeNames?.map((alternativeName) => alternativeName.name) ?? [];
 }
 
+// TODO: Remove repeating code
 function convertInvolvedCompaniesToDevelopers(igdbInvolvedCompanies: IGDBInvolvedCompany[]): Company[] {
 	const developers: Company[] = [];
 
@@ -124,46 +113,21 @@ function convertInvolvedCompaniesToPublishers(igdbInvolvedCompanies: IGDBInvolve
 	return publishers;
 }
 
-function convertDLCs(igdbDLCs: IGDBDLC[] | undefined): DLC[] {
-	return igdbDLCs?.map((dlc) => ({
+function convertCommonEntities(igdbCommonEntities: IGDBCommonEntity[] | undefined): GameDBCommonEntity[] {
+	return igdbCommonEntities?.map((dlc) => ({
 		id: String(dlc.id),
 		title: dlc.name,
 	})) ?? [];
 }
 
-function convertFranchise(igdbFranchise: IGDBFranchise | undefined): Franchise | undefined {
-	if (igdbFranchise === undefined) {
+function convertCommonEntity(igdbCommonEntity: IGDBCommonEntity | undefined): GameDBCommonEntity | undefined {
+	if (igdbCommonEntity === undefined) {
 		return undefined;
 	}
 
 	return {
-		id: String(igdbFranchise.id),
-		title: igdbFranchise.name,
-	};
-}
-
-function convertFranchises(igdbFranchises: IGDBFranchise[] | undefined): Franchise[] {
-	return igdbFranchises?.map((franchise) => ({
-		id: String(franchise.id),
-		title: franchise.name,
-	})) ?? [];
-}
-
-function convertGenres(igdbGenres: IGDBGenre[]): Genre[] {
-	return igdbGenres.map((genre) => ({
-		id: String(genre.id),
-		title: genre.name,
-	}));
-}
-
-function convertParentGame(igdbParentGame: IGDBParentGame | undefined): ParentGame | undefined {
-	if (igdbParentGame === undefined) {
-		return undefined;
-	}
-
-	return {
-		id: String(igdbParentGame.id),
-		title: igdbParentGame.name,
+		id: String(igdbCommonEntity.id),
+		title: igdbCommonEntity.name,
 	};
 }
 
@@ -175,31 +139,3 @@ function convertPlatforms(igdbPlatforms: IGDBPlatform[]): Platform[] {
 	}));
 }
 
-function convertSimilarGames(igdbSimilarGames: IGDBSimilarGame[] | undefined): SimilarGame[] {
-	if (igdbSimilarGames === undefined) {
-		return [];
-	}
-
-	return igdbSimilarGames.map((similarGame) => ({
-		id: String(similarGame.id),
-		title: similarGame.name,
-	}));
-}
-
-function convertRemakes(igdbRemakes: IGDBRemake[] | undefined): Remake[] {
-	return igdbRemakes?.map((remake) => ({
-		id: String(remake.id),
-		title: remake.name,
-	})) ?? [];
-}
-
-function convertCollection(igdbCollection?: IGDBGameCollection): Series | undefined {
-	if (igdbCollection === undefined) {
-		return undefined;
-	}
-
-	return {
-		id: String(igdbCollection.id),
-		title: igdbCollection.name,
-	}
-}

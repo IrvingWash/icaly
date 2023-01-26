@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { RequestMetaInfo } from '../request-metainfo';
-import { IGDBAuthResult } from './igdb-objects';
+import { IGDBAuthResult } from './igdb-objects-and-constants';
 
 export interface IIGDBAuthenticator {
 	authenticate(): Promise<IGDBAuthResult>;

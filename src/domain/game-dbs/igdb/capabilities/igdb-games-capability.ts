@@ -1,5 +1,6 @@
 import { CommonGamesCapability } from '../../capabilities/common-games-capability';
 import { Game } from '../../game-db-objects-and-constants';
+import { convertIGDBGame } from '../converters/igdb-game-converter';
 import { IIGDBTransport } from '../igdb-transport';
 
 export class IGDBGamesCapability implements CommonGamesCapability {
@@ -12,6 +13,6 @@ export class IGDBGamesCapability implements CommonGamesCapability {
 	public async getGames(): Promise<Game[]> {
 		const igdbGames = await this._transport.games();
 
-		return igdbGames;
+		return igdbGames.map(convertIGDBGame);
 	}
 }

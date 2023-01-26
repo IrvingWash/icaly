@@ -1,50 +1,36 @@
+export interface IGDBAuthResult {
+	access_token: string;
+	expires_in: number;
+	token_type: string;
+}
+
 export interface IGDBGame {
 	id: number;
 	alternative_names?: IGDBAlternativeName[];
 	category: IGDBGameCategory;
-	collection?: IGDBGameCollection;
+	collection?: IGDBCommonEntity;
 	cover?: IGDBCover;
-	dlcs?: IGDBDLC[];
-	expanded_games?: IGDBDLC[];
-	expansions?: IGDBDLC[];
+	dlcs?: IGDBCommonEntity[];
+	expanded_games?: IGDBCommonEntity[];
+	expansions?: IGDBCommonEntity[];
 	first_release_date: number;
-	franchise?: IGDBFranchise;
-	franchises: IGDBFranchise[];
-	genres: IGDBGenre[];
+	franchise?: IGDBCommonEntity;
+	franchises?: IGDBCommonEntity[];
+	genres: IGDBCommonEntity[];
 	involved_companies: IGDBInvolvedCompany[];
 	name: string;
-	parent_game?: IGDBParentGame;
+	parent_game?: IGDBCommonEntity;
 	platforms: IGDBPlatform[];
-	remakes?: IGDBRemake[];
-	remasters?: IGDBRemaster[];
-	similar_games: IGDBSimilarGame[];
-	standalone_expansions?: IGDBDLC[];
+	remakes?: IGDBCommonEntity[];
+	remasters?: IGDBCommonEntity[];
+	similar_games?: IGDBCommonEntity[];
+	standalone_expansions?: IGDBCommonEntity[];
 	status?: IGDBGameStatus;
 	storyline: string;
 	summary: string;
 }
 
-export interface IGDBRemake {
-	id: number;
-	name: string;
-}
-
-export interface IGDBRemaster {
-	id: number;
-	name: string;
-}
-
-export interface IGDBSimilarGame {
-	id: number;
-	name: string;
-}
-
-export interface IGDBParentGame {
-	id: number;
-	name: string;
-}
-
-export interface IGDBDLC {
+export interface IGDBCommonEntity {
 	id: number;
 	name: string;
 }
@@ -53,23 +39,8 @@ export interface IGDBAlternativeName {
 	name: string;
 }
 
-export interface IGDBGameCollection {
-	id: number;
-	name: string;
-}
-
 export interface IGDBCover {
 	url: string;
-}
-
-export interface IGDBFranchise {
-	id: number;
-	name: string;
-}
-
-export interface IGDBGenre {
-	id: number;
-	name: string;
 }
 
 export interface IGDBInvolvedCompany {
@@ -93,11 +64,6 @@ export interface IGDBPlatform {
 	id: number;
 	name: string;
 	platform_logo: IGDBPlatformLogo;
-}
-
-export interface IGDBPlatformFamily {
-	id: number;
-	name: string;
 }
 
 export interface IGDBPlatformLogo {

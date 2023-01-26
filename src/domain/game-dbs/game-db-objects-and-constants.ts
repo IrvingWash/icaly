@@ -32,65 +32,29 @@ export interface Game {
 	title: string;
 	alternativeTitles: string[];
 	category: GameCategory;
-	series?: Series;
+	series?: GameDBCommonEntity;
 	cover?: string;
-	dlcs: DLC[];
-	expandedGames: DLC[];
-	expansions: DLC[];
+	dlcs: GameDBCommonEntity[];
+	expandedGames: GameDBCommonEntity[];
+	expansions: GameDBCommonEntity[];
 	releaseDate: number;
-	franchise?: Franchise;
-	franchises: Franchise[];
-	genres: Genre[];
+	franchise?: GameDBCommonEntity;
+	franchises: GameDBCommonEntity[];
+	genres: GameDBCommonEntity[];
 	developers: Company[];
 	publishers: Company[];
-	parentGame?: ParentGame;
+	parentGame?: GameDBCommonEntity;
 	platforms: Platform[];
-	remakes: Remake[];
-	remasters: Remaster[];
-	similarGames: SimilarGame[];
-	standalonExpansions: DLC[];
+	remakes: GameDBCommonEntity[];
+	remasters: GameDBCommonEntity[];
+	similarGames: GameDBCommonEntity[];
+	standaloneExpansions: GameDBCommonEntity[];
 	status: GameStatus;
 	storyline: string;
 	description: string;
 }
 
-export interface Remake {
-	id: string;
-	title: string;
-}
-
-
-export interface Remaster {
-	id: string;
-	title: string;
-}
-
-export interface SimilarGame {
-	id: string;
-	title: string;
-}
-
-export interface DLC {
-	id: string;
-	title: string;
-}
-
-export interface Series {
-	id: string;
-	title: string;
-}
-
-export interface Franchise {
-	id: string;
-	title: string;
-}
-
-export interface Genre {
-	id: string;
-	title: string;
-}
-
-export interface ParentGame {
+export interface GameDBCommonEntity {
 	id: string;
 	title: string;
 }
