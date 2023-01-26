@@ -1,8 +1,8 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 
-import { GameDB } from './game-db';
-import { gameDBFactory } from './game-db-factory';
-import { Game } from './game-db-objects-and-constants';
+import { GameDB } from './game-db/game-db';
+import { gameDBFactory } from './game-db/game-db-factory';
+import { Game } from './game-db/game-db-objects-and-constants';
 
 @Injectable()
 export class GameDBService implements OnModuleInit {
