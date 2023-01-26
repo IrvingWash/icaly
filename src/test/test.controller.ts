@@ -9,6 +9,8 @@ export class TestController {
 
 	@Get('games')
 	public async getAllGames(): Promise<void> {
-		await this._gameDBService.getGames();
+		const games = await this._gameDBService.getGames();
+
+		console.log(games);
 	}
 }
