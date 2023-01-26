@@ -1,5 +1,7 @@
 import { EnvExtractor } from 'src/utils/env-extractor';
+import { CommonGamesCapability } from '../capabilities/common-games-capability';
 import { GameDB } from '../game-db';
+import { Game } from '../game-db-objects-and-constants';
 import { IGDBAuthenticator, IIGDBAuthenticator } from './igdb-authenticator';
 import { IGDBFetch, makeIGDBFetch } from './igdb-fetch';
 import { IGDBRequestEnvironment, IIGDBRequestEnvironment } from './igdb-request-environment';
@@ -14,6 +16,7 @@ export class IGDB implements GameDB {
 	private readonly _requestEnvironment: IIGDBRequestEnvironment;
 	private readonly _authenticator: IIGDBAuthenticator;
 	private _transport!: IIGDBTransport;
+	private readonly _gamesCapability: CommonGamesCapability;
 
 	public constructor() {
 		this._requestEnvironment = new IGDBRequestEnvironment(
@@ -33,7 +36,7 @@ export class IGDB implements GameDB {
 		this._transport = new IGDBTransport(this._igdbFetch, this._requestEnvironment);
 	}
 
-	public async getGames(): Promise<void> {
-		await this._transport.games();
+	public async getGames(): Promise<Game[]> {
+		return this._gamesCapability.getGames();
 	}
 }

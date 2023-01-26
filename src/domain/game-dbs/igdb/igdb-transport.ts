@@ -1,8 +1,9 @@
 import { IGDBFetch } from './igdb-fetch';
+import { IGDBGame } from './igdb-objects-and-constants';
 import { IIGDBRequestEnvironment } from './igdb-request-environment';
 
 export interface IIGDBTransport {
-	games(): Promise<void>;
+	games(): Promise<IGDBGame[]>;
 }
 
 export class IGDBTransport implements IIGDBTransport {
@@ -14,7 +15,7 @@ export class IGDBTransport implements IIGDBTransport {
 		this._requestEnvironment = requestEnvironment;
 	}
 
-	public async games(): Promise<void> {
-		await this._igdbFetch(this._requestEnvironment.gamesRequestMetaInfo());
+	public async games(): Promise<IGDBGame[]> {
+		return await this._igdbFetch<IGDBGame[]>(this._requestEnvironment.gamesRequestMetaInfo());
 	}
 }

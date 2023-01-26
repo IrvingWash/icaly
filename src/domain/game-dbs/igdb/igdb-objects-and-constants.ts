@@ -1,35 +1,50 @@
-export type IGDBReferenceID = string;
-
 export interface IGDBGame {
-	alternative_names: IGDBReferenceID[];
+	id: number;
+	alternative_names?: IGDBAlternativeName[];
 	category: IGDBGameCategory;
-	collection: IGDBReferenceID[];
-	cover: IGDBReferenceID;
-	dlcs: IGDBReferenceID[];
-	expanded_games: IGDBReferenceID[];
-	expansions: IGDBReferenceID[];
+	collection?: IGDBGameCollection[];
+	cover?: IGDBCover;
+	dlcs?: IGDBDLC[];
+	expanded_games?: IGDBDLC[];
+	expansions?: IGDBDLC[];
 	first_release_date: number;
-	franchise: IGDBReferenceID;
-	franchises: IGDBReferenceID[];
-	genres: IGDBReferenceID[];
-	involved_companies: IGDBReferenceID[];
+	franchise?: IGDBFranchise;
+	franchises: IGDBFranchise[];
+	genres: IGDBGenre[];
+	involved_companies: IGDBInvolvedCompany[];
 	name: string;
-	parent_game: IGDBReferenceID;
-	platforms: IGDBReferenceID[];
-	remakes: IGDBReferenceID[];
-	remasters: IGDBReferenceID[];
-	similar_games: IGDBReferenceID[];
-	standalon_expansions: IGDBReferenceID[];
-	status: IGDBGameStatus;
+	parent_game?: IGDBParentGame;
+	platforms: IGDBPlatform[];
+	remakes?: IGDBGame[];
+	remasters?: IGDBGame[];
+	similar_games: IGDBSimilarGame;
+	standalone_expansions?: IGDBGame[];
+	status?: IGDBGameStatus;
 	storyline: string;
 	summary: string;
 }
 
-export interface IGDBAlternativeNames {
+export interface IGDBSimilarGame {
+	id: number;
+	name: string;
+}
+
+export interface IGDBParentGame {
+	id: number;
+	name: string;
+}
+
+export interface IGDBDLC {
+	id: number;
+	name: string;
+}
+
+export interface IGDBAlternativeName {
 	name: string;
 }
 
 export interface IGDBGameCollection {
+	id: number;
 	name: string;
 }
 
@@ -38,29 +53,26 @@ export interface IGDBCover {
 }
 
 export interface IGDBFranchise {
-	games: string[];
+	id: number;
 	name: string;
 }
 
 export interface IGDBGenre {
+	id: number;
 	name: string;
 }
 
 export interface IGDBInvolvedCompany {
-	company: IGDBReferenceID;
-	developer: boolean;
-	porting: boolean;
+	id: number;
+	company: IGDBCompany;
 	publisher: boolean;
-	supporting: boolean;
 }
 
 export interface IGDBCompany {
+	id: number;
 	country: number;
-	description: string;
-	developed: IGDBReferenceID[];
-	logo: IGDBReferenceID;
+	logo: IGDBCompanyLogo;
 	name: string;
-	published: IGDBReferenceID;
 }
 
 export interface IGDBCompanyLogo {
@@ -68,17 +80,13 @@ export interface IGDBCompanyLogo {
 }
 
 export interface IGDBPlatform {
-	abbreviation: string;
-	alternative_name: string;
-	category: IGDBReferenceID;
-	generation: number;
+	id: number;
 	name: string;
-	platform_family: IGDBReferenceID;
-	platform_logo: IGDBReferenceID;
-	summary: string;
+	platform_logo: IGDBPlatformLogo;
 }
 
 export interface IGDBPlatformFamily {
+	id: number;
 	name: string;
 }
 

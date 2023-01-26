@@ -16,15 +16,6 @@ export const enum GameCategory {
 	Update,
 }
 
-export const enum PlatformCategory {
-	Console,
-	Arcade,
-	Platform,
-	OperatingSystem,
-	PortableConsole,
-	Computer,
-}
-
 export const enum GameStatus {
 	Released,
 	Alpha,
@@ -37,25 +28,26 @@ export const enum GameStatus {
 }
 
 export interface Game {
+	id: string;
 	title: string;
 	alternativeTitles: string[];
 	category: GameCategory;
 	series: Series;
-	cover: Cover;
-	dlcs: Game[];
-	expandedGames: Game[];
-	expansions: Game[];
+	cover?: string;
+	dlcs: DLC[];
+	expandedGames: DLC[];
+	expansions: DLC[];
 	releaseDate: number;
-	franchise: Franchise;
+	franchise?: Franchise;
 	franchises: Franchise[];
 	genres: Genre[];
 	developers: Company[];
 	publishers: Company[];
-	parentGame: Game;
+	parentGame?: ParentGame;
 	platforms: Platform[];
 	remakes: Game[];
 	remasters: Game[];
-	similarGames: Game[];
+	similarGames: SimilarGame[];
 	standalonExpansions: Game[];
 	status: GameStatus;
 	storyline: string;
@@ -63,40 +55,46 @@ export interface Game {
 	websites: string[];
 }
 
+export interface SimilarGame {
+	id: string;
+	title: string;
+}
+
+export interface DLC {
+	id: string;
+	title: string;
+}
+
 export interface Series {
 	title: string;
 	games: Game[];
 }
 
-export interface Cover {
-	url: string;
-}
-
 export interface Franchise {
+	id: string;
 	title: string;
-	games: Game[];
 }
 
 export interface Genre {
+	id: string;
+	title: string;
+}
+
+export interface ParentGame {
+	id: string;
 	title: string;
 }
 
 export interface Company {
+	id: string;
 	title: string;
 	country: number;
-	description: string;
-	games: Game[];
 	logo: string;
 }
 
 export interface Platform {
+	id: string;
 	title: string;
-	abbreviation: string;
-	alternativeTitle: string;
-	generation: number;
-	category: PlatformCategory,
 	logo: string;
-	family: string;
-	description: string;
 }
 
